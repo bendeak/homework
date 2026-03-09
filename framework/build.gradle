@@ -1,0 +1,12 @@
+dependencies {
+    // Selenium
+    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    implementation "io.github.bonigarcia:webdrivermanager:${webdrivermanager}"
+
+    // OkHttp3
+    implementation "com.squareup.okhttp3:okhttp:${okHttpVersion}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
+
+    // JUnit 5
+    implementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+}

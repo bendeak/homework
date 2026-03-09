@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    // Shared version catalog
+    ext {
+        seleniumVersion    = '4.29.0'
+        junitVersion       = '5.11.4'
+        okHttpVersion      = '4.12.0'
+        slf4jVersion       = '2.0.16'
+        log4jVersion       = '2.24.3'
+        webdrivermanager   = '5.9.2'
+    }
+
+    dependencies {
+        // Logging with SLF4J and Log4j2
+        implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+        implementation "org.apache.logging.log4j:log4j-slf4j2-impl:${log4jVersion}"
+        implementation "org.apache.logging.log4j:log4j-core:${log4jVersion}"
+        implementation "org.apache.logging.log4j:log4j-api:${log4jVersion}"
+    }
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events 'passed', 'skipped', 'failed'
+            showStandardStreams = false
+            exceptionFormat = 'full'
+        }
+    }
+}
