@@ -18,7 +18,6 @@ public class CheckoutStepTwoPage extends BasePage {
 
     public CheckoutStepTwoPage(WebDriver driver) {
         super(driver);
-        wait.forPage().toLoad();
         assertTrue(isLoaded(), "CheckoutStepTwoPage failed to load: unexpected URL or missing elements");
     }
 

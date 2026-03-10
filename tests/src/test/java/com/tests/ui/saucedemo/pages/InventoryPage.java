@@ -28,7 +28,6 @@ public class InventoryPage extends BasePage {
     public InventoryPage addToCart(String productName) {
         String buttonId = "add-to-cart-" + productName.toLowerCase().replace(" ", "-");
         click(By.id(buttonId));
-        wait.forPage().toLoad();
         log.info("Added to cart: {}", productName);
         return this;
     }

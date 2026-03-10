@@ -3,6 +3,7 @@ package com.framework.core;
 import com.framework.config.FrameworkConfig;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -32,8 +33,6 @@ public class DriverFactory {
     private static WebDriver createDriver() {
         String browser = FrameworkConfig.browser().toLowerCase();
         boolean headless = FrameworkConfig.headless();
-        int implicitWait = FrameworkConfig.implicitWaitSeconds();
-
         log.info("Creating {} driver (headless={})", browser, headless);
 
         WebDriver driver = switch (browser) {
@@ -42,13 +41,22 @@ public class DriverFactory {
             default -> createChromeDriver(headless);
         };
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait));
+        // Page load strategy: EAGER waits only until the DOM is interactive, not until
+        // all scripts/ads/analytics have finished. NORMAL (the default) blocks
+        // driver.get()
+        // until document.readyState == 'complete', which never happens on pages that
+        // keep
+        // background scripts running (e.g. ad-heavy pages), causing indefinite hangs.
+        // Actual page readiness is verified by waiting on visible elements in each page
+        // object.
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         driver.manage().window().maximize();
         return driver;
     }
 
     private static WebDriver createChromeDriver(boolean headless) {
         ChromeOptions opts = new ChromeOptions();
+        opts.setPageLoadStrategy(PageLoadStrategy.EAGER);
         String version = FrameworkConfig.chromeVersion();
         String chromeBinary = FrameworkConfig.chromeBinary();
 
@@ -79,6 +87,7 @@ public class DriverFactory {
         WebDriverManager.firefoxdriver().driverVersion(version).setup();
 
         FirefoxOptions opts = new FirefoxOptions();
+        opts.setPageLoadStrategy(PageLoadStrategy.EAGER);
         if (headless)
             opts.addArguments("--headless");
         return new FirefoxDriver(opts);
@@ -91,6 +100,7 @@ public class DriverFactory {
         WebDriverManager.edgedriver().driverVersion(version).setup();
 
         EdgeOptions opts = new EdgeOptions();
+        opts.setPageLoadStrategy(PageLoadStrategy.EAGER);
         if (headless)
             opts.addArguments("--headless");
         return new EdgeDriver(opts);

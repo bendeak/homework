@@ -14,7 +14,6 @@ public class CheckoutCompletePage extends BasePage {
 
     public CheckoutCompletePage(WebDriver driver) {
         super(driver);
-        wait.forPage().toLoad();
         assertTrue(isLoaded(), "CheckoutCompletePage failed to load: unexpected URL or missing elements");
     }
 

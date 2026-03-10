@@ -9,12 +9,14 @@ import org.slf4j.LoggerFactory;
 public abstract class BaseTest {
 
     protected WebDriver driver;
+    protected WaitHelper wait;
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @BeforeEach
     public void setUp() {
         log.info("=== Starting test: {} ===", getClass().getSimpleName());
         driver = DriverFactory.getDriver();
+        wait = new WaitHelper(driver);
     }
 
     @AfterEach

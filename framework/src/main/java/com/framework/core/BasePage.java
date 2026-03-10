@@ -61,4 +61,15 @@ public abstract class BasePage {
     public String getTitle() {
         return driver.getTitle();
     }
+
+    // Frame handling
+    protected void enterFrame(By locator) {
+        log.debug("Switching into frame: {}", locator);
+        driver.switchTo().frame(wait.on(locator).visible());
+    }
+
+    protected void exitFrame() {
+        log.debug("Switching back to main document");
+        driver.switchTo().defaultContent();
+    }
 }

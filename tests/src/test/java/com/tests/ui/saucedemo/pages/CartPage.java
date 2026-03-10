@@ -18,7 +18,6 @@ public class CartPage extends BasePage {
 
     public CartPage(WebDriver driver) {
         super(driver);
-        wait.forPage().toLoad();
         assertTrue(isLoaded(), "CartPage failed to load: unexpected URL or missing elements");
     }
 

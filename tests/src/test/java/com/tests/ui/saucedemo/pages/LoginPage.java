@@ -17,13 +17,13 @@ public class LoginPage extends BasePage {
 
     public LoginPage open() {
         driver.get("https://www.saucedemo.com");
-        wait.forPage().toLoad();
+        wait.on(USERNAME_INPUT).visible();
         return this;
     }
 
     public LoginPage openUrl(String url) {
         driver.get(url);
-        wait.forPage().toLoad();
+        wait.on(USERNAME_INPUT).visible();
         return this;
     }
 
@@ -34,19 +34,11 @@ public class LoginPage extends BasePage {
         return correctUrl && usernameReady && loginReady;
     }
 
-    // TODO: remove it if I go with transition method above
-    public void submitLogin(String username, String password) {
-        type(USERNAME_INPUT, username);
-        type(PASSWORD_INPUT, password);
-        click(LOGIN_BUTTON);
-    }
-
     // Transition method to InventoryPage
     public InventoryPage loginAs(String username, String password) {
         type(USERNAME_INPUT, username);
         type(PASSWORD_INPUT, password);
         click(LOGIN_BUTTON);
-        wait.forPage().toLoad();
         return new InventoryPage(driver);
     }
 

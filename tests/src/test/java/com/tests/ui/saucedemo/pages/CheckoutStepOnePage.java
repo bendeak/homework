@@ -16,7 +16,6 @@ public class CheckoutStepOnePage extends BasePage {
 
     public CheckoutStepOnePage(WebDriver driver) {
         super(driver);
-        wait.forPage().toLoad();
         assertTrue(isLoaded(), "CheckoutStepOnePage failed to load: unexpected URL or missing elements");
     }
 

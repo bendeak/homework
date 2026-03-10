@@ -15,6 +15,7 @@ class RichTextEditorTest extends BaseTest {
         private static final String UNDERLINE_TEXT = "Test";
         private static final String PLAIN_TEXT = " Example";
 
+        // Case 3 – Rich Text Editor
         @Test
         @DisplayName("Bold, underline and plain text are correctly encoded in the editor")
         void richTextFormattingIsAppliedCorrectly() {

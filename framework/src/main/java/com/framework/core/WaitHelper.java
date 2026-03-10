@@ -15,11 +15,11 @@ import java.util.List;
  * Fluent wait helper.
  *
  * Usage:
- *   waits.on(locator).visible()
- *   waits.on(locator).clickable()
- *   waits.on(locator).hasText("Submit")
- *   waits.forPage().toLoad()
- *   waits.forPage().urlContains("/dashboard")
+ * waits.on(locator).visible()
+ * waits.on(locator).clickable()
+ * waits.on(locator).hasText("Submit")
+ * waits.forPage().toLoad()
+ * waits.forPage().urlContains("/dashboard")
  */
 public class WaitHelper {
 
@@ -34,8 +34,8 @@ public class WaitHelper {
     }
 
     public WaitHelper(WebDriver driver, int timeoutSeconds) {
-        this.driver    = driver;
-        this.wait      = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
         this.shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
     }
 
@@ -72,12 +72,15 @@ public class WaitHelper {
         private final WebDriverWait shortWait;
 
         private ElementWait(By locator, WebDriverWait wait, WebDriverWait shortWait) {
-            this.locator   = locator;
-            this.wait      = wait;
+            this.locator = locator;
+            this.wait = wait;
             this.shortWait = shortWait;
         }
 
-        /** Waits until the element is present in the DOM and visible. Returns the element. */
+        /**
+         * Waits until the element is present in the DOM and visible. Returns the
+         * element.
+         */
         public WebElement visible() {
             log.debug("Waiting for visible: {}", locator);
             return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -89,7 +92,10 @@ public class WaitHelper {
             return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
         }
 
-        /** Waits until the element is present in DOM (not necessarily visible). Returns the element. */
+        /**
+         * Waits until the element is present in DOM (not necessarily visible). Returns
+         * the element.
+         */
         public WebElement present() {
             log.debug("Waiting for present: {}", locator);
             return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -120,7 +126,8 @@ public class WaitHelper {
         }
 
         /**
-         * Soft check — returns true if element is visible within 3 seconds, false otherwise.
+         * Soft check — returns true if element is visible within 3 seconds, false
+         * otherwise.
          * Does not throw. Useful for conditional logic in page objects.
          */
         public boolean isVisible() {
@@ -163,15 +170,14 @@ public class WaitHelper {
 
         private PageWait(WebDriver driver, WebDriverWait wait) {
             this.driver = driver;
-            this.wait   = wait;
+            this.wait = wait;
         }
 
         /** Waits until document.readyState == 'complete'. */
         public void toLoad() {
             log.debug("Waiting for page load");
-            wait.until((ExpectedCondition<Boolean>) d ->
-                    "complete".equals(((JavascriptExecutor) d)
-                            .executeScript("return document.readyState")));
+            wait.until((ExpectedCondition<Boolean>) d -> "complete".equals(((JavascriptExecutor) d)
+                    .executeScript("return document.readyState")));
         }
 
         /** Waits until the current URL contains {@code fragment}. */
@@ -186,7 +192,9 @@ public class WaitHelper {
             wait.until(ExpectedConditions.titleContains(fragment));
         }
 
-        /** Waits until jQuery reports no active AJAX calls. Safe if jQuery is absent. */
+        /**
+         * Waits until jQuery reports no active AJAX calls. Safe if jQuery is absent.
+         */
         public void ajaxComplete() {
             log.debug("Waiting for AJAX to complete");
             wait.until((ExpectedCondition<Boolean>) d -> {

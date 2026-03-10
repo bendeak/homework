@@ -22,8 +22,6 @@ public class EditorPage extends BasePage {
 
     public EditorPage open() {
         driver.get(URL);
-        wait.forPage().toLoad();
-        wait.on(EDITOR_BODY).isVisible();
         focusEditor();
         return this;
     }
@@ -81,7 +79,6 @@ public class EditorPage extends BasePage {
     }
 
     private void typeInEditor(String text) {
-        focusEditor();
         new Actions(driver).sendKeys(text).perform();
     }
 }

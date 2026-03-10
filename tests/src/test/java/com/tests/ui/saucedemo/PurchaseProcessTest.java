@@ -24,6 +24,7 @@ class PurchaseProcessTest extends BaseTest {
                 itemsToBuy = CredentialReader.loadItems();
         }
 
+        // Case 1 – Automate Purchase Process
         @Test
         @DisplayName("User can log in, add items to cart, and complete checkout")
         void completePurchaseProcess() {
