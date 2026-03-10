@@ -24,6 +24,7 @@ public class EditorPage extends BasePage {
         driver.get(URL);
         wait.forPage().toLoad();
         wait.on(EDITOR_BODY).isVisible();
+        focusEditor();
         return this;
     }
 
@@ -75,8 +76,12 @@ public class EditorPage extends BasePage {
         return html;
     }
 
+    private void focusEditor() {
+        new Actions(driver).click(wait.on(EDITOR_BODY).visible()).perform();
+    }
+
     private void typeInEditor(String text) {
-        WebElement body = wait.on(EDITOR_BODY).visible();
-        new Actions(driver).click(body).sendKeys(text).perform();
+        focusEditor();
+        new Actions(driver).sendKeys(text).perform();
     }
 }

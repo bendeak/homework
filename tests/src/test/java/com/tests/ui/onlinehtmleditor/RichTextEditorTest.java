@@ -34,8 +34,6 @@ class RichTextEditorTest extends BaseTest {
                 log.info("Step 3: Typing '{}' with underline", UNDERLINE_TEXT);
                 editorPage.typeUnderline(UNDERLINE_TEXT);
 
-                editorPage.typeText(" ");
-
                 // Type " Example" as plain text
                 log.info("Step 4: Typing '{}' as plain text", PLAIN_TEXT);
                 editorPage.typeText(PLAIN_TEXT);
