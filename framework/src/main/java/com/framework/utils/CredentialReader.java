@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Reads typed test data from JSON files on the classpath.
- * Supports credentials and general key-value extraction.
+ * Reads typed test data from testdata.json on the classpath.
+ * All test data is centralised in a single file.
  */
 public class CredentialReader {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final String TEST_DATA_FILE = "testdata.json";
 
     private CredentialReader() {
     }
@@ -24,23 +25,25 @@ public class CredentialReader {
     public record CheckoutInfo(String firstName, String lastName, String postalCode) {
     }
 
-    public static Credentials load(String filename) {
-        JsonNode root = readJson(filename);
+    public static Credentials loadUser(String userKey) {
+        JsonNode node = readJson(TEST_DATA_FILE).get("users").get(userKey);
+        if (node == null)
+            throw new IllegalArgumentException("No user found for key: " + userKey);
         return new Credentials(
-                root.get("username").asText(),
-                root.get("password").asText());
+                node.get("username").asText(),
+                node.get("password").asText());
     }
 
-    public static CheckoutInfo loadCheckoutInfo(String filename) {
-        JsonNode node = readJson(filename).get("checkout");
+    public static CheckoutInfo loadCheckoutInfo() {
+        JsonNode node = readJson(TEST_DATA_FILE).get("checkout");
         return new CheckoutInfo(
                 node.get("firstName").asText(),
                 node.get("lastName").asText(),
                 node.get("postalCode").asText());
     }
 
-    public static List<String> loadItems(String filename) {
-        JsonNode array = readJson(filename).get("items");
+    public static List<String> loadItems() {
+        JsonNode array = readJson(TEST_DATA_FILE).get("items");
         List<String> items = new ArrayList<>();
         array.forEach(n -> items.add(n.asText()));
         return items;

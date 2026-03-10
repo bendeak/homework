@@ -8,17 +8,21 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Case 2 – Validation and Footer")
-class ValidationAndFooterTest extends BaseTest {
+// This is a combined test for login validation and footer content as per the
+// assignment spec.
+// I kept them separate in the codebase (LoginValidationTest and FooterTest) to
+// follow best practices, but this test serves as the required "Case 2" that
+// covers both concerns together.
+
+@DisplayName("Case 2 – Login Validation and Footer Content")
+class Case2Test extends BaseTest {
 
         private static final String INVENTORY_URL = "https://www.saucedemo.com/inventory.html";
         private static final String EXPECTED_ERROR = "Epic sadface: Username is required";
-        private static final String VALID_USERNAME = "standard_user";
-        private static final String VALID_PASSWORD = "secret_sauce";
 
         @Test
-        @DisplayName("Login button shows error for missing credentials, footer shows copyright and terms")
-        void errorMessageAndFooterValidation() {
+        @DisplayName("Guest is redirected to login, empty submit shows error, footer shows copyright and terms after sign in")
+        void loginValidationAndFooterContentAreCorrect() {
 
                 // Step 1 — Navigate directly to inventory (redirects to login page)
                 log.info("Step 1: Navigating directly to inventory URL: {}", INVENTORY_URL);
@@ -35,9 +39,9 @@ class ValidationAndFooterTest extends BaseTest {
                 log.info("Error message displayed: '{}'", errorMessage);
                 assertEquals(EXPECTED_ERROR, errorMessage, "Error message text should match expected");
 
-                // Step 3 — Login with valid credentials
-                log.info("Step 3: Logging in as '{}'", VALID_USERNAME);
-                InventoryPage inventoryPage = loginPage.loginAs(VALID_USERNAME, VALID_PASSWORD);
+                log.info("Step 3: Logging in as standardUser");
+                InventoryPage inventoryPage = new LoginHelper(driver).loginAs("standardUser");
+                assertTrue(inventoryPage.isLoaded(), "Inventory page should be loaded after login");
 
                 assertTrue(inventoryPage.isLoaded(), "Inventory page should be loaded after login");
 
@@ -48,8 +52,6 @@ class ValidationAndFooterTest extends BaseTest {
                                 .getFooterText();
 
                 log.info("Footer text: '{}'", footerText);
-                // If we want to validate "2024" the test will always fail, because the footer
-                // contains 2026, it might be a typo in the test case
                 assertAll("Footer content",
                                 () -> assertTrue(footerText.contains("2026"),
                                                 "Footer should contain '2026'"),

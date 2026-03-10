@@ -27,6 +27,13 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    public boolean isLoaded() {
+        boolean correctUrl = driver.getCurrentUrl().contains("saucedemo.com");
+        boolean usernameReady = wait.on(USERNAME_INPUT).isVisible();
+        boolean loginReady = wait.on(LOGIN_BUTTON).isVisible();
+        return correctUrl && usernameReady && loginReady;
+    }
+
     // TODO: remove it if I go with transition method above
     public void submitLogin(String username, String password) {
         type(USERNAME_INPUT, username);

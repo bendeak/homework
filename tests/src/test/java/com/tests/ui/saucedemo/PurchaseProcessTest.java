@@ -2,7 +2,6 @@ package com.tests.ui.saucedemo;
 
 import com.framework.core.BaseTest;
 import com.framework.utils.CredentialReader;
-import com.framework.utils.CredentialReader.Credentials;
 import com.framework.utils.CredentialReader.CheckoutInfo;
 import com.tests.ui.saucedemo.pages.*;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,15 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Case 1 – Purchase Process")
 class PurchaseProcessTest extends BaseTest {
 
-        private static Credentials credentials;
         private static CheckoutInfo checkoutInfo;
         private static List<String> itemsToBuy;
 
         @BeforeAll
         static void loadTestData() {
-                credentials = CredentialReader.load("credentials.json");
-                checkoutInfo = CredentialReader.loadCheckoutInfo("testdata.json");
-                itemsToBuy = CredentialReader.loadItems("testdata.json");
+                checkoutInfo = CredentialReader.loadCheckoutInfo();
+                itemsToBuy = CredentialReader.loadItems();
         }
 
         @Test
@@ -32,11 +29,8 @@ class PurchaseProcessTest extends BaseTest {
         void completePurchaseProcess() {
 
                 // Step 1 — Login
-                log.info("Step 1: Opening login page and signing in as '{}'", credentials.username());
-                InventoryPage inventoryPage = new LoginPage(driver)
-                                .open()
-                                .loginAs(credentials.username(), credentials.password());
-
+                log.info("Step 1: Opening login page and signing in as glitchUser");
+                InventoryPage inventoryPage = new LoginHelper(driver).loginAs("glitchUser");
                 assertTrue(inventoryPage.isLoaded(), "Inventory page should be loaded after login");
 
                 // Step 2 — Add items to cart
