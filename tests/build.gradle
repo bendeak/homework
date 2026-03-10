@@ -12,3 +12,8 @@ dependencies {
     testRuntimeOnly    "org.junit.platform:junit-platform-engine:1.11.4"
     testRuntimeOnly    "org.junit.platform:junit-platform-commons:1.11.4"
 }
+
+test {
+    systemProperty 'log4j2.configurationFile', 'log4j2-test.xml'
+    systemProperty 'test.log.dir', 'logs/test-runs'
+}

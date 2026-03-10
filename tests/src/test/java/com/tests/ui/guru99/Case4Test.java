@@ -11,7 +11,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Case 4 – iFrame and Tab Handling")
-class IFrameAndTabTest extends BaseTest {
+class Case4Test extends BaseTest {
 
     // NOTE: Spec stated "Selenium Live Project: FREE Real Time Project for
     // Practice"

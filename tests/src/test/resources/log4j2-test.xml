@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Test-specific logging config: verbose console output, no rolling files -->
 <Configuration status="WARN">
     <Appenders>
+
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
+
+        <!-- One log file per test run, named by start timestamp -->
+        <RollingFile name="TestFile"
+                     fileName="${sys:test.log.dir:-logs/test-runs}/run-${date:yyyy-MM-dd_HH-mm-ss}.log"
+                     filePattern="${sys:test.log.dir:-logs/test-runs}/run-${date:yyyy-MM-dd_HH-mm-ss}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+
     </Appenders>
+
     <Loggers>
-        <Logger name="com.framework" level="DEBUG" additivity="false">
+        <Logger name="com.framework" level="INFO" additivity="false">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="TestFile"/>
         </Logger>
-        <Logger name="com.tests" level="DEBUG" additivity="false">
+        <Logger name="com.tests" level="INFO" additivity="false">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="TestFile"/>
         </Logger>
         <Root level="WARN">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="TestFile"/>
         </Root>
     </Loggers>
 </Configuration>

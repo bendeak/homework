@@ -20,7 +20,6 @@ class Case2Test extends BaseTest {
         private static final String INVENTORY_URL = "https://www.saucedemo.com/inventory.html";
         private static final String EXPECTED_ERROR = "Epic sadface: Username is required";
 
-        // Case 2 – Verify error messages for mandatory fields
         @Test
         @DisplayName("Guest is redirected to login, empty submit shows error, footer shows copyright and terms after sign in")
         void loginValidationAndFooterContentAreCorrect() {
