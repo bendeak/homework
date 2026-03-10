@@ -10,6 +10,7 @@ public class InventoryPage extends BasePage {
     private static final By INVENTORY_LIST = By.cssSelector(".inventory_list");
     private static final By CART_BADGE = By.cssSelector(".shopping_cart_badge");
     private static final By CART_LINK = By.cssSelector(".shopping_cart_link");
+    private static final By FOOTER_TEXT = By.cssSelector(".footer_copy");
 
     public InventoryPage(WebDriver driver) {
         super(driver);
@@ -36,6 +37,15 @@ public class InventoryPage extends BasePage {
         if (!wait.on(CART_BADGE).isVisible())
             return 0;
         return Integer.parseInt(getText(CART_BADGE));
+    }
+
+    public InventoryPage scrollToFooter() {
+        scrollToElement(FOOTER_TEXT);
+        return this;
+    }
+
+    public String getFooterText() {
+        return getText(FOOTER_TEXT);
     }
 
     // Transition method to CartPage

@@ -21,6 +21,12 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    public LoginPage openUrl(String url) {
+        driver.get(url);
+        wait.forPage().toLoad();
+        return this;
+    }
+
     // TODO: remove it if I go with transition method above
     public void submitLogin(String username, String password) {
         type(USERNAME_INPUT, username);
@@ -35,6 +41,13 @@ public class LoginPage extends BasePage {
         click(LOGIN_BUTTON);
         wait.forPage().toLoad();
         return new InventoryPage(driver);
+    }
+
+    // For negative test cases to trigger error message without transition to
+    // InventoryPage
+    public LoginPage clickLoginWithoutCredentials() {
+        click(LOGIN_BUTTON);
+        return this;
     }
 
     public boolean hasError() {

@@ -2,6 +2,7 @@ package com.framework.core;
 
 import com.framework.config.FrameworkConfig;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -40,6 +41,17 @@ public abstract class BasePage {
         WebElement el = wait.on(locator).visible();
         el.clear();
         el.sendKeys(text);
+    }
+
+    protected void scrollToBottom() {
+        log.debug("Scrolling to bottom of page");
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
+    }
+
+    protected void scrollToElement(By locator) {
+        WebElement element = wait.on(locator).present();
+        log.debug("Scrolling to element: {}", locator);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", element);
     }
 
     protected String getText(By locator) {
