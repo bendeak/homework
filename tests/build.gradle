@@ -6,4 +6,9 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
     testRuntimeOnly    "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+
+    // Required for VS Code's test runner to work correctly with JUnit 5.11+
+    testRuntimeOnly    "org.junit.platform:junit-platform-launcher:1.11.4"
+    testRuntimeOnly    "org.junit.platform:junit-platform-engine:1.11.4"
+    testRuntimeOnly    "org.junit.platform:junit-platform-commons:1.11.4"
 }

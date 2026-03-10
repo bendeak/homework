@@ -38,7 +38,6 @@ public class FrameworkConfig {
         return get(key, null);
     }
 
-    // --- Convenience getters ---
 
     public static String browser() {
         return get("browser", "chrome");
@@ -48,8 +47,32 @@ public class FrameworkConfig {
         return Boolean.parseBoolean(get("headless", "false"));
     }
 
+    public static boolean chromeForTesting() {
+        return Boolean.parseBoolean(get("chrome.for.testing", "true"));
+    }
+
+    public static String chromeBinary() {
+        return get("chrome.binary", "");
+    }
+
+    public static String chromeVersion() {
+        return get("chrome.version", "stable");
+    }
+
+    public static String firefoxVersion() {
+        return get("firefox.version", "latest");
+    }
+
+    public static String edgeVersion() {
+        return get("edge.version", "latest");
+    }
+
     public static String baseUrl() {
         return get("base.url", "http://localhost");
+    }
+
+    public static String apiBaseUrl() {
+        return get("api.base.url", "http://localhost/api");
     }
 
     public static int implicitWaitSeconds() {
@@ -58,9 +81,5 @@ public class FrameworkConfig {
 
     public static int explicitWaitSeconds() {
         return Integer.parseInt(get("explicit.wait.seconds", "15"));
-    }
-
-    public static String apiBaseUrl() {
-        return get("api.base.url", "http://localhost/api");
     }
 }

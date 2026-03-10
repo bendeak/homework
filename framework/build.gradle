@@ -1,12 +1,17 @@
-dependencies {
-    // Selenium
-    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
-    implementation "io.github.bonigarcia:webdrivermanager:${webdrivermanager}"
+apply plugin: 'java-library'
 
-    // OkHttp3
-    implementation "com.squareup.okhttp3:okhttp:${okHttpVersion}"
-    implementation "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
+dependencies {
+    // Selenium 
+    api "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    api "io.github.bonigarcia:webdrivermanager:${webdrivermanager}"
+
+    // OkHttp3 
+    api "com.squareup.okhttp3:okhttp:${okHttpVersion}"
+    api "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
 
     // JUnit 5
-    implementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    api "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+
+    // Jackson for JSON parsing
+    api "com.fasterxml.jackson.core:jackson-databind:2.18.2"
 }

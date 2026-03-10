@@ -1,0 +1,11 @@
+{
+  "checkout": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "postalCode": "12345"
+  },
+  "items": [
+    "Sauce Labs Backpack",
+    "Sauce Labs Fleece Jacket"
+  ]
+}
