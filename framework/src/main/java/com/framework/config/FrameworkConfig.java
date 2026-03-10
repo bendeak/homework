@@ -27,9 +27,13 @@ public class FrameworkConfig {
         }
     }
 
-    private FrameworkConfig() {}
+    private FrameworkConfig() {
+    }
 
-    /** Returns value from system property first, then properties file, then the provided default. */
+    /**
+     * Returns value from system property first, then properties file, then the
+     * provided default.
+     */
     public static String get(String key, String defaultValue) {
         return System.getProperty(key, props.getProperty(key, defaultValue));
     }
@@ -37,7 +41,6 @@ public class FrameworkConfig {
     public static String get(String key) {
         return get(key, null);
     }
-
 
     public static String browser() {
         return get("browser", "chrome");
@@ -73,10 +76,6 @@ public class FrameworkConfig {
 
     public static String apiBaseUrl() {
         return get("api.base.url", "http://localhost/api");
-    }
-
-    public static int implicitWaitSeconds() {
-        return Integer.parseInt(get("implicit.wait.seconds", "5"));
     }
 
     public static int explicitWaitSeconds() {

@@ -26,8 +26,9 @@ public class Guru99HomePage extends BasePage {
 
     public Guru99HomePage open() {
         driver.get(URL);
-        // Wait for a specific element rather than readyState because long load time due
-        // to background script running
+        // Guru99 keeps background ad/analytics scripts running indefinitely, so
+        // document.readyState never reaches 'complete'. We wait for the nav menu
+        // to be visible instead — a reliable signal that the page has rendered.
         wait.on(TESTING_HOVER_MENU).visible();
         return this;
     }
@@ -52,10 +53,8 @@ public class Guru99HomePage extends BasePage {
         return existingHandles;
     }
 
-    /**
-     * Waits until a new tab is open and returns its handle.
-     * Uses the main window handle to identify which handle is new.
-     */
+    // Waits until a new tab is open and returns its handle.
+    // Uses the main window handle to identify which handle is new.
     public String switchToNewTab(Set<String> existingHandles) {
         // Wait until a handle appears that wasn't in the pre-click set
         wait.waitFor(d -> d.getWindowHandles().stream()

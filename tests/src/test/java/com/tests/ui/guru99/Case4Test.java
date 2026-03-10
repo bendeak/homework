@@ -52,9 +52,9 @@ class Case4Test extends BaseTest {
         assertTrue(seleniumPage.isLoaded(), "Selenium tutorial page should be loaded");
 
         // Step 6 — Verify the red signup button is displayed
-        // The "wide red Join button" is not present currently due to possible changes
-        // in the implementation.
-        // The next best thing is the "Submit" button defined in SeleniumTutorialPage
+        // NOTE: The spec referenced a "wide red Join Now button" which no longer
+        // exists on this page. Asserting the red Submit button in the
+        // "Learn Selenium in 7 Days!" signup section as the closest equivalent.
         log.info("Step 6: Verifying red signup button is displayed");
         assertTrue(seleniumPage.isSubmitButtonDisplayed(),
                 "Red signup Submit button should be visible near bottom of page");

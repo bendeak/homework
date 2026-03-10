@@ -7,9 +7,9 @@ public class SeleniumTutorialPage extends BasePage {
 
     private static final By PAGE_HEADING = By.cssSelector("h1.entry-title");
 
-    // The "wide red Join button" is not present currently due to possible changes
-    // in the implementation.
-    // The next best thing is the "Submit" button defined here:
+    // NOTE: The spec referenced a "wide red Join Now button" which no longer
+    // exists on this page. Asserting the red Submit button in the
+    // "Learn Selenium in 7 Days!" signup section as the closest equivalent.
     private static final By SUBMIT_BUTTON = By.cssSelector("button.cb-form-group__btn");
 
     public SeleniumTutorialPage(WebDriver driver) {
@@ -28,9 +28,6 @@ public class SeleniumTutorialPage extends BasePage {
     // trying to scroll to it.
     public boolean isSubmitButtonDisplayed() {
         wait.on(PAGE_HEADING).visible().click();
-        // ((JavascriptExecutor) driver).executeScript(
-        // "document.body.dispatchEvent(new KeyboardEvent('keydown', {bubbles:
-        // true}));");
         wait.on(SUBMIT_BUTTON).present();
         scrollToElement(SUBMIT_BUTTON);
         return wait.on(SUBMIT_BUTTON).isVisible();

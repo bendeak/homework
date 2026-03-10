@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Case 5 – REST API Testing
 @DisplayName("Case 5 – REST API Testing")
 class UsersApiTest extends BaseApiTest {
 
@@ -23,6 +22,7 @@ class UsersApiTest extends BaseApiTest {
     @BeforeEach
     @Override
     public void setUpApi() {
+        super.setUpApi();
         // Override the default ApiClient to point at jsonplaceholder instead of
         // the framework's configured api.base.url.
         api = new ApiClient(BASE_URL);
